@@ -16,24 +16,7 @@ const logos = [
 export default function LogoMarquee() {
     return (
         <section className="relative py-12 bg-white overflow-hidden">
-            {/* Wavy Line Decoration (Top Left) */}
-            <div className="absolute top-0 left-0 w-full pointer-events-none">
-                <svg
-                    className="absolute top-4 left-0"
-                    width="400"
-                    height="60"
-                    viewBox="0 0 400 60"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        d="M0 30 Q 100 10, 200 30 T 400 30"
-                        stroke="#E5E7EB"
-                        strokeWidth="2"
-                        fill="none"
-                    />
-                </svg>
-            </div>
+
 
             {/* Marquee Container */}
             <div className="relative overflow-hidden">
