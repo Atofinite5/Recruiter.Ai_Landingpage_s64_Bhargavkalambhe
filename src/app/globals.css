@@ -1,26 +1,269 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Caveat:wght@400;700&family=Playfair+Display:wght@400;700;900&display=swap');
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    @apply font-sans antialiased bg-white;
+    scroll-behavior: smooth;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .btn-primary {
+    @apply px-10 py-5 bg-gradient-to-r from-primary to-blue-600 text-white font-semibold rounded-xl shadow-blue-glow hover:shadow-strong transition-all duration-300 hover:-translate-y-1;
+  }
+
+  .btn-secondary {
+    @apply px-10 py-5 border-2 border-primary text-primary font-semibold rounded-xl hover:bg-blue-50 transition-all duration-300;
+  }
+
+  .card {
+    @apply bg-white border border-gray-200 rounded-xl p-8 shadow-soft hover:shadow-medium hover:border-primary transition-all;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-b from-gray-700 to-primary bg-clip-text text-transparent;
+  }
+
+  .glass {
+    @apply bg-white/70 backdrop-blur-xl border border-white/20;
+  }
+
+  .glow-blue {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(59, 130, 246, 0.1);
+  }
+
+  .glow-purple {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3), 0 0 40px rgba(139, 92, 246, 0.1);
+  }
+}
+
+@layer utilities {
+
+  /* Floating animation */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-float-delayed {
+    animation: float 6s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+
+  .animate-float-slow {
+    animation: float 8s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+
+  /* Pulse glow animation */
+  .animate-pulse-glow {
+    animation: pulseGlow 2s ease-in-out infinite;
+  }
+
+  /* Blob animation */
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+
+  /* Gradient shift animation */
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+  }
+
+  /* Orbit animation */
+  .animate-orbit {
+    animation: orbit 20s linear infinite;
+  }
+
+  /* Particle animation */
+  .animate-particle {
+    animation: particle 15s linear infinite;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-15px) rotate(1deg);
+  }
+}
+
+@keyframes pulseGlow {
+
+  0%,
+  100% {
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 4px 32px rgba(59, 130, 246, 0.5), 0 0 60px rgba(59, 130, 246, 0.2);
+  }
+}
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes orbit {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes particle {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-100vh) translateX(50px) scale(0.5);
+    opacity: 0;
+  }
+}
+
+/* Counter animation utility for metrics */
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.count-up {
+  animation: countUp 0.6s ease-out forwards;
+}
+
+/* ========================================
+   LOGO MARQUEE - RIGHT TO LEFT
+   ======================================== */
+
+@keyframes marquee-rtl {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-rtl {
+  animation: marquee-rtl 35s linear infinite;
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+/* Stop animation if user prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-rtl {
+    animation: none;
+  }
+}
+
+/* ========================================
+   HERO REDESIGN UTILITIES
+   ======================================== */
+
+.hero-gradient {
+  background: radial-gradient(circle at 50% 0%, #E0E7FF 0%, #FFFFFF 60%);
+}
+
+.font-serif-display {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-handwriting {
+  font-family: 'Caveat', cursive;
+}
+
+.brush-stroke {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  background-color: #BFDBFE;
+  /* Light blue brush */
+  z-index: -1;
+  border-radius: 4px;
+  transform: rotate(-1deg) skewX(-10deg);
+  opacity: 0.6;
+}
+
+.brush-underline-container {
+  position: relative;
+  display: inline-block;
+}
+
+.bubble-shadow {
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.05);
+}
+
+.floating-element {
+  will-change: transform;
 }
